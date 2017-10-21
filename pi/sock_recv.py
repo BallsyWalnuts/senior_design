@@ -11,6 +11,8 @@
 # https://wiki.python.org/moin/UdpCommunication
 # http://web.archive.org/web/20131017130434/http://www.jejik.com/articles/2007/02/a_simple_unix_linux_daemon_in_python/
 
+# NOT OPERATIONAL
+TODO: add conditions so that daemon releases the bind on the port when asked to stop
 
 import socket
 import time
@@ -43,14 +45,13 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Set up a UDP connection between an RPi and something else")
     parser.add_argument("action",
                         nargs=1,
-                        required=True,
                         choices=["start", "restart", "stop"],
                         help="What should the daemon do? Options are start, restart, and stop")
     daemon = RecvDaemon('/tmp/daemon_udp_receive.pid')
     args = parser.parse_args()
-    if args.start:
+    if args.action[0] == "start":
         daemon.start()
-    elif args.restart:
+    elif args.action[0] == "restart":
         daemon.restart()
     else:
         daemon.stop()
