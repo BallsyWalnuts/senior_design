@@ -24,13 +24,16 @@ UDP_IP = "146.163.42.94"  # IP of Pi
 UDP_PORT = 5005           # Port the Pi is listening on
 
 # Set up the socket connection
-sock = socket.socket(socket.AF_INET,  # Internet
-                     socket.SOCK_DGRAM)  # UDP
-sock.bind((UDP_IP, UDP_PORT))
+# sock = socket.socket(socket.AF_INET,  # Internet
+#                      socket.SOCK_DGRAM)  # UDP
+# sock.bind((UDP_IP, UDP_PORT))
 
 
 class RecvDaemon(Daemon):
     def run(self):
+        sock = socket.socket(socket.AF_INET,  # Internet
+                             socket.SOCK_DGRAM)  # UDP
+        sock.bind((UDP_IP, UDP_PORT))
         while True:
             data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
             print "received message:", data
