@@ -24,7 +24,7 @@ while timeSensed <= endTime:
     timeSensed += 10
 droid.stopSensing()
 
-UDP_IP = "120.0..1"
+UDP_IP = "120.0.0.1"
 UDP_PORT = 8001
 MESSAGE = "Hello World"
 
