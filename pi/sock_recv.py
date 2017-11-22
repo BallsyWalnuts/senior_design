@@ -22,7 +22,7 @@ import argparse
 from daemon import Daemon
 
 START_TIME = time.time()  # for tracking how long the program ran
-UDP_IP = "146.163.42.94"  # IP of Pi
+UDP_IP = "192.168.1.103"  # IP of Pi
 UDP_PORT = 5005           # Port the Pi is listening on
 
 # Set up the socket connection
@@ -37,8 +37,10 @@ class RecvDaemon(Daemon):
                              socket.SOCK_DGRAM)  # UDP
         sock.bind((UDP_IP, UDP_PORT))
         while True:
+	    f = open("/tmp/delta.txt", "a")
             data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
-            print "received message:", data
+            f.write("{}".format(data))
+	    f.close()
 
 
 if __name__ == "__main__":
